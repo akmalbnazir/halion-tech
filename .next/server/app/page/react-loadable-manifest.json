@@ -1,10 +1,9 @@
 {
-  "[project]/src/components/GlassesScene.tsx [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/src/components/GlassesScene.tsx [app-client] (ecmascript, next/dynamic entry)",
+  "[project]/src/components/HudDisplay.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/HudDisplay.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
-      "static/chunks/node_modules_three_build_three_module_f7d46d9b.js",
-      "static/chunks/src_components_GlassesScene_tsx_97e21eb6._.js",
-      "static/chunks/src_components_GlassesScene_tsx_4f827dfb._.js"
+      "static/chunks/_5076e743._.js",
+      "static/chunks/src_components_HudDisplay_tsx_1ebe6623._.js"
     ]
   },
   "[project]/src/components/reactbits/Particles.tsx [app-client] (ecmascript, next/dynamic entry)": {
@@ -12,14 +11,14 @@
     "files": [
       "static/chunks/node_modules_ogl_src_598e83bf._.js",
       "static/chunks/src_components_reactbits_Particles_tsx_a8f50929._.js",
-      "static/chunks/src_components_reactbits_Particles_tsx_4f827dfb._.js"
+      "static/chunks/src_components_reactbits_Particles_tsx_1ebe6623._.js"
     ]
   },
   "[project]/src/components/reactbits/Noise.tsx [app-client] (ecmascript, next/dynamic entry)": {
     "id": "[project]/src/components/reactbits/Noise.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
       "static/chunks/src_components_reactbits_Noise_tsx_3773c2ad._.js",
-      "static/chunks/src_components_reactbits_Noise_tsx_4f827dfb._.js"
+      "static/chunks/src_components_reactbits_Noise_tsx_1ebe6623._.js"
     ]
   }
 }

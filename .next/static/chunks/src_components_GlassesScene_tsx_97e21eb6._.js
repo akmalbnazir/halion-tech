@@ -22,11 +22,9 @@ function GlassesScene() {
         "GlassesScene.useEffect": ()=>{
             const container = containerRef.current;
             if (!container) return;
-            // --- Setup ---
             const scene = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Scene"]();
             const camera = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PerspectiveCamera"](45, container.clientWidth / container.clientHeight, 0.1, 100);
             camera.position.set(0, 0, 5);
-            // Check WebGL support before attempting to create renderer
             const testCanvas = document.createElement('canvas');
             const webglSupported = !!(testCanvas.getContext('webgl2') || testCanvas.getContext('webgl'));
             if (!webglSupported) return;
@@ -43,21 +41,21 @@ function GlassesScene() {
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.setClearColor(0x000000, 0);
             container.appendChild(renderer.domElement);
-            // --- Materials ---
-            const lineMat = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["LineBasicMaterial"]({
+            /* ── Materials ── */ const frameMat = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["LineBasicMaterial"]({
                 color: '#7c5cff',
                 transparent: true,
-                opacity: 0.7
+                opacity: 0.85
             });
-            const glowMat = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["LineBasicMaterial"]({
+            const frameGlowMat = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["LineBasicMaterial"]({
                 color: '#5227FF',
                 transparent: true,
-                opacity: 0.3
+                opacity: 0.3,
+                linewidth: 1
             });
-            const fillMat = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MeshBasicMaterial"]({
+            const lensFillMat = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MeshBasicMaterial"]({
                 color: '#5227FF',
                 transparent: true,
-                opacity: 0.03,
+                opacity: 0.04,
                 side: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DoubleSide"]
             });
             const dotMat = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MeshBasicMaterial"]({
@@ -72,80 +70,121 @@ function GlassesScene() {
                 opacity: 0.4,
                 sizeAttenuation: true
             });
-            // --- Glasses group ---
-            const glassesGroup = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Group"]();
-            glassesGroup.scale.setScalar(1.8);
-            // Rounded rectangle lens shape
-            const lensShape = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Shape"]();
-            const w = 1.2, h = 0.8, r = 0.2;
-            lensShape.moveTo(-w / 2 + r, -h / 2);
-            lensShape.lineTo(w / 2 - r, -h / 2);
-            lensShape.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r);
-            lensShape.lineTo(w / 2, h / 2 - r);
-            lensShape.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2);
-            lensShape.lineTo(-w / 2 + r, h / 2);
-            lensShape.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r);
-            lensShape.lineTo(-w / 2, -h / 2 + r);
-            lensShape.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
-            const lensLineGeo = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferGeometry"]().setFromPoints(lensShape.getPoints(50));
+            /* ── Glasses group ── */ const glassesGroup = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Group"]();
+            glassesGroup.scale.setScalar(1.7);
+            /* Wayfarer lens shape — trapezoidal, wider at top, narrower at bottom, slight rounding */ const createWayfarerLens = {
+                "GlassesScene.useEffect.createWayfarerLens": ()=>{
+                    const shape = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Shape"]();
+                    // Wayfarer proportions: wider top, narrower rounded bottom
+                    const topW = 1.3;
+                    const botW = 1.1;
+                    const h = 0.95;
+                    const r = 0.12; // corner radius
+                    // Start bottom-left, go clockwise
+                    shape.moveTo(-botW / 2 + r, -h / 2);
+                    // Bottom edge
+                    shape.lineTo(botW / 2 - r, -h / 2);
+                    // Bottom-right corner (rounded)
+                    shape.quadraticCurveTo(botW / 2, -h / 2, botW / 2, -h / 2 + r);
+                    // Right edge — angled outward toward top
+                    shape.lineTo(topW / 2, h / 2 - r);
+                    // Top-right corner (rounded)
+                    shape.quadraticCurveTo(topW / 2, h / 2, topW / 2 - r, h / 2);
+                    // Top edge — flat/slightly wider
+                    shape.lineTo(-topW / 2 + r, h / 2);
+                    // Top-left corner (rounded)
+                    shape.quadraticCurveTo(-topW / 2, h / 2, -topW / 2, h / 2 - r);
+                    // Left edge — angled inward toward bottom
+                    shape.lineTo(-botW / 2, -h / 2 + r);
+                    // Bottom-left corner (rounded)
+                    shape.quadraticCurveTo(-botW / 2, -h / 2, -botW / 2 + r, -h / 2);
+                    return shape;
+                }
+            }["GlassesScene.useEffect.createWayfarerLens"];
+            const lensShape = createWayfarerLens();
+            const lensLineGeo = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferGeometry"]().setFromPoints(lensShape.getPoints(60));
             const lensFillGeo = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ShapeGeometry"](lensShape);
-            // Left lens
-            const leftLens = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Group"]();
-            leftLens.position.x = -0.75;
-            leftLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](lensLineGeo, lineMat));
-            leftLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](lensLineGeo.clone(), glowMat));
-            leftLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Mesh"](lensFillGeo, fillMat));
+            /* Left lens */ const leftLens = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Group"]();
+            leftLens.position.x = -0.78;
+            leftLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](lensLineGeo, frameMat));
+            leftLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](lensLineGeo.clone(), frameGlowMat));
+            leftLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Mesh"](lensFillGeo, lensFillMat));
             glassesGroup.add(leftLens);
-            // Right lens
-            const rightLens = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Group"]();
-            rightLens.position.x = 0.75;
-            rightLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](lensLineGeo.clone(), lineMat));
-            rightLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](lensLineGeo.clone(), glowMat));
-            rightLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Mesh"](lensFillGeo.clone(), fillMat));
+            /* Right lens */ const rightLens = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Group"]();
+            rightLens.position.x = 0.78;
+            rightLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](lensLineGeo.clone(), frameMat));
+            rightLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](lensLineGeo.clone(), frameGlowMat));
+            rightLens.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Mesh"](lensFillGeo.clone(), lensFillMat));
             glassesGroup.add(rightLens);
-            // Bridge
-            const bridgeCurve = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["QuadraticBezierCurve3"](new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](-0.15, 0.1, 0), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](0, 0.25, 0.05), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](0.15, 0.1, 0));
-            glassesGroup.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferGeometry"]().setFromPoints(bridgeCurve.getPoints(20)), lineMat));
-            // Temple arms
-            const templeCurve = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["QuadraticBezierCurve3"](new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](0, 0, 0), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](-0.3, -0.05, -0.8), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](-0.2, -0.15, -1.6));
-            const templeGeo = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferGeometry"]().setFromPoints(templeCurve.getPoints(30));
-            const leftTemple = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](templeGeo, lineMat);
-            leftTemple.position.set(-1.35, 0.1, 0);
+            /* Top frame bar — thick brow line across both lenses (Wayfarer signature) */ const browPoints = [];
+            const browSteps = 40;
+            for(let i = 0; i <= browSteps; i++){
+                const t = i / browSteps;
+                const x = -1.44 + t * 2.88; // from left edge to right edge
+                const y = 0.475 + Math.sin(t * Math.PI) * 0.03; // very subtle arch
+                browPoints.push(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](x, y, 0));
+            }
+            const browGeo = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferGeometry"]().setFromPoints(browPoints);
+            glassesGroup.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](browGeo, frameMat));
+            // Second brow line slightly above for thickness effect
+            const browPoints2 = browPoints.map({
+                "GlassesScene.useEffect.browPoints2": (p)=>new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](p.x, p.y + 0.04, p.z)
+            }["GlassesScene.useEffect.browPoints2"]);
+            const browGeo2 = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferGeometry"]().setFromPoints(browPoints2);
+            glassesGroup.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](browGeo2, frameGlowMat));
+            /* Bridge — keyhole style */ const bridgeCurve = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CubicBezierCurve3"](new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](-0.12, 0.2, 0), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](-0.04, -0.05, 0.06), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](0.04, -0.05, 0.06), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](0.12, 0.2, 0));
+            glassesGroup.add(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferGeometry"]().setFromPoints(bridgeCurve.getPoints(24)), frameMat));
+            /* Temple arms — thick and angular like Wayfarers */ const createTemple = {
+                "GlassesScene.useEffect.createTemple": ()=>{
+                    const curve = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CubicBezierCurve3"](new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](0, 0, 0), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](-0.15, 0, -0.6), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](-0.2, -0.06, -1.1), new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](-0.18, -0.12, -1.7));
+                    return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferGeometry"]().setFromPoints(curve.getPoints(36));
+                }
+            }["GlassesScene.useEffect.createTemple"];
+            const templeGeo = createTemple();
+            const leftTemple = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](templeGeo, frameMat);
+            leftTemple.position.set(-1.44, 0.3, 0);
             glassesGroup.add(leftTemple);
-            const rightTemple = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](templeGeo.clone(), lineMat);
-            rightTemple.position.set(1.35, 0.1, 0);
+            // Thickness line for left temple
+            const leftTemple2 = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](templeGeo.clone(), frameGlowMat);
+            leftTemple2.position.set(-1.44, 0.25, 0);
+            glassesGroup.add(leftTemple2);
+            const rightTemple = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](templeGeo.clone(), frameMat);
+            rightTemple.position.set(1.44, 0.3, 0);
             rightTemple.scale.x = -1;
             glassesGroup.add(rightTemple);
-            // Glow dots at key vertices
-            const dotGeo = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SphereGeometry"](0.03, 8, 8);
-            const dotPositions = [
+            const rightTemple2 = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Line"](templeGeo.clone(), frameGlowMat);
+            rightTemple2.position.set(1.44, 0.25, 0);
+            rightTemple2.scale.x = -1;
+            glassesGroup.add(rightTemple2);
+            /* Hinge dots */ const dotGeo = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SphereGeometry"](0.035, 10, 10);
+            const hingePositions = [
                 [
-                    -1.35,
-                    0.1,
+                    -1.44,
+                    0.3,
                     0
                 ],
                 [
-                    1.35,
-                    0.1,
+                    1.44,
+                    0.3,
                     0
                 ],
                 [
                     0,
-                    0.25,
-                    0.05
+                    -0.04,
+                    0.06
                 ],
                 [
-                    -0.75,
-                    0.4,
+                    -0.78,
+                    0.475,
                     0
                 ],
                 [
-                    0.75,
-                    0.4,
+                    0.78,
+                    0.475,
                     0
-                ]
+                ] // brow corners
             ];
-            dotPositions.forEach({
+            hingePositions.forEach({
                 "GlassesScene.useEffect": (param)=>{
                     let [x, y, z] = param;
                     const dot = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Mesh"](dotGeo, dotMat);
@@ -154,8 +193,7 @@ function GlassesScene() {
                 }
             }["GlassesScene.useEffect"]);
             scene.add(glassesGroup);
-            // --- Floating particles ---
-            const particleCount = 100;
+            /* ── Floating particles ── */ const particleCount = 80;
             const positions = new Float32Array(particleCount * 3);
             for(let i = 0; i < particleCount; i++){
                 positions[i * 3] = (Math.random() - 0.5) * 8;
@@ -166,25 +204,21 @@ function GlassesScene() {
             particleGeo.setAttribute('position', new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BufferAttribute"](positions, 3));
             const particles = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Points"](particleGeo, particleMat);
             scene.add(particles);
-            // --- Animation ---
-            const clock = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Clock"]();
+            /* ── Animation ── */ const clock = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Clock"]();
             let animId;
             const animate = {
                 "GlassesScene.useEffect.animate": ()=>{
                     animId = requestAnimationFrame(animate);
                     const t = clock.getElapsedTime();
-                    // Gentle rotation & float
-                    glassesGroup.rotation.y = Math.sin(t * 0.3) * 0.15;
-                    glassesGroup.rotation.x = Math.sin(t * 0.2) * 0.05;
-                    glassesGroup.position.y = Math.sin(t * 0.5) * 0.08;
-                    // Slow particle rotation
-                    particles.rotation.y = t * 0.02;
+                    glassesGroup.rotation.y = Math.sin(t * 0.3) * 0.18;
+                    glassesGroup.rotation.x = Math.sin(t * 0.2) * 0.04;
+                    glassesGroup.position.y = Math.sin(t * 0.5) * 0.06;
+                    particles.rotation.y = t * 0.015;
                     renderer.render(scene, camera);
                 }
             }["GlassesScene.useEffect.animate"];
             animate();
-            // --- Resize ---
-            const onResize = {
+            /* ── Resize ── */ const onResize = {
                 "GlassesScene.useEffect.onResize": ()=>{
                     if (!container) return;
                     const w = container.clientWidth;
@@ -195,8 +229,7 @@ function GlassesScene() {
                 }
             }["GlassesScene.useEffect.onResize"];
             window.addEventListener('resize', onResize);
-            // --- Cleanup ---
-            cleanupRef.current = ({
+            /* ── Cleanup ── */ cleanupRef.current = ({
                 "GlassesScene.useEffect": ()=>{
                     cancelAnimationFrame(animId);
                     window.removeEventListener('resize', onResize);
@@ -217,7 +250,7 @@ function GlassesScene() {
         className: "w-full h-full"
     }, void 0, false, {
         fileName: "[project]/src/components/GlassesScene.tsx",
-        lineNumber: 173,
+        lineNumber: 220,
         columnNumber: 10
     }, this);
 }

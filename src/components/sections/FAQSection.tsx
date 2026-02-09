@@ -93,8 +93,9 @@ export default function FAQSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="faq" className="section-padding relative" ref={ref}>
-      <div className="max-w-3xl mx-auto relative z-10">
+    <section id="faq" className="relative pt-32 pb-24 sm:pt-40 sm:pb-32" ref={ref}>
+      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+        <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <motion.p
@@ -120,6 +121,7 @@ export default function FAQSection() {
           {isInView && faqs.map((faq, i) => (
             <FAQItem key={i} faq={faq} index={i} />
           ))}
+        </div>
         </div>
       </div>
     </section>

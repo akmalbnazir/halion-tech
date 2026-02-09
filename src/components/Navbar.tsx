@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const navLinks = [
-  { label: 'Product', href: '#product' },
-  { label: 'Philosophy', href: '#philosophy' },
-  { label: 'Use Cases', href: '#usecases' },
-  { label: 'Team', href: '#team' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Product', href: '/product' },
+  { label: 'Philosophy', href: '/philosophy' },
+  { label: 'Use Cases', href: '/use-cases' },
+  { label: 'Team', href: '/team' },
+  { label: 'FAQ', href: '/faq' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
@@ -17,64 +17,64 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <>
-      <motion.nav
+      <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-black/80 backdrop-blur-2xl border-b border-white/[0.06]'
+            ? 'bg-black/80 backdrop-blur-xl border-b border-white/[0.06]'
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 lg:py-5 flex items-center justify-between">
+        <div className="w-full max-w-[1400px] mx-auto flex items-center justify-between px-6 sm:px-8 lg:px-12 h-16 lg:h-[72px]">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 group">
+          <a href="/" className="flex items-center gap-3 shrink-0">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#5227FF] to-[#7c5cff] flex items-center justify-center">
-              <span className="text-white font-bold text-xs leading-none">H</span>
+              <span className="text-white font-bold text-xs">H</span>
             </div>
             <span className="text-white font-medium text-base tracking-tight">
               Halion
             </span>
           </a>
 
-          {/* Desktop Nav — centered links + right CTA */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[13px] text-zinc-500 hover:text-white transition-colors duration-300 relative group"
+                className="text-[13px] text-zinc-500 hover:text-white transition-colors duration-200"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#5227FF] group-hover:w-full transition-all duration-300" />
               </a>
             ))}
-            <a
-              href="#contact"
-              className="ml-4 inline-flex items-center justify-center h-9 px-5 rounded-full bg-white/[0.06] border border-white/[0.08] text-white text-[13px] font-medium hover:bg-white/[0.1] hover:border-white/[0.15] transition-all duration-300"
-            >
-              Get in touch
-            </a>
-          </div>
+          </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Desktop CTA */}
+          <a
+            href="/contact"
+            className="hidden md:inline-flex items-center justify-center h-9 px-5 rounded-full bg-white/[0.06] border border-white/[0.08] text-white text-[13px] font-medium hover:bg-white/[0.1] transition-colors shrink-0"
+          >
+            Get in touch
+          </a>
+
+          {/* Mobile burger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden flex flex-col gap-1.5 p-2"
+            aria-label="Toggle menu"
           >
             <motion.span
               animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className="block w-5 h-[1.5px] bg-white"
+              className="block w-5 h-[1.5px] bg-white origin-center"
             />
             <motion.span
               animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
@@ -82,36 +82,36 @@ export default function Navbar() {
             />
             <motion.span
               animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className="block w-5 h-[1.5px] bg-white"
+              className="block w-5 h-[1.5px] bg-white origin-center"
             />
           </button>
         </div>
-      </motion.nav>
+      </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Mobile overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl pt-28 px-10 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl pt-24 px-8 md:hidden"
           >
-            <div className="flex flex-col gap-8">
+            <nav className="flex flex-col gap-6">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.label}
                   href={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.08 }}
                   onClick={() => setMobileOpen(false)}
-                  className="text-3xl text-white font-light"
+                  className="text-2xl text-white font-light"
                 >
                   {link.label}
                 </motion.a>
               ))}
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

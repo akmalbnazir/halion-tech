@@ -21,11 +21,11 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden" ref={ref}>
+    <section id="contact" className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32" ref={ref}>
       {/* Background */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-[#5227FF]/5 blur-[150px] pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
           {/* Left: Info */}
           <motion.div
