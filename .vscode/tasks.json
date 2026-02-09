@@ -1,0 +1,50 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install dependencies",
+			"type": "shell",
+			"command": "cd \"c:\\Users\\aarya\\Desktop\\coding projects\\halion-tech\" && npm install",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "npm-install",
+			"type": "shell",
+			"command": "npm install",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "dev-server",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true,
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Dev Server",
+			"type": "shell",
+			"command": "cd \"c:\\Users\\aarya\\Desktop\\coding projects\\halion-tech\" && npx next dev --turbopack",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "next-dev",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "halion-dev",
+			"type": "shell",
+			"command": "cd \"c:\\Users\\aarya\\Desktop\\coding projects\\halion-tech\" && rmdir /s /q .next 2>nul & npm run dev",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}
