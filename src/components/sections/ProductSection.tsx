@@ -40,7 +40,7 @@ const features = [
 const stats = [
   { value: 8, suffix: '+ hrs', label: 'All-day battery life' },
   { value: 38, suffix: 'g', label: 'Ultra-lightweight' },
-  { value: 40, suffix: '°', label: 'Field of view' },
+  { value: 30, suffix: '°', label: 'Field of view' },
 ];
 
 const notList = [

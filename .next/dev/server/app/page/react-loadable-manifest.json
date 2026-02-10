@@ -1,0 +1,24 @@
+{
+  "[project]/src/components/reactbits/Particles.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/reactbits/Particles.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_ogl_src_598e83bf._.js",
+      "static/chunks/src_components_reactbits_Particles_tsx_a8f50929._.js",
+      "static/chunks/src_components_reactbits_Particles_tsx_f02ad4a7._.js"
+    ]
+  },
+  "[project]/src/components/HudDisplay.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/HudDisplay.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_5076e743._.js",
+      "static/chunks/src_components_HudDisplay_tsx_f02ad4a7._.js"
+    ]
+  },
+  "[project]/src/components/reactbits/Noise.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/reactbits/Noise.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_reactbits_Noise_tsx_3773c2ad._.js",
+      "static/chunks/src_components_reactbits_Noise_tsx_f02ad4a7._.js"
+    ]
+  }
+}

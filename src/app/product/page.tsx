@@ -53,7 +53,7 @@ const features = [
 
 const specs = [
   { icon: Cpu, label: 'Custom silicon', detail: 'Purpose-built low-power processor optimized for contextual AR workloads.' },
-  { icon: Zap, label: 'Waveguide display', detail: 'Transparent micro-LED waveguide that overlays information without blocking your view.' },
+  { icon: Zap, label: 'Waveguide display', detail: 'Transparent waveguide that overlays information without blocking your view.' },
   { icon: Shield, label: 'Privacy-first', detail: 'No always-on camera. Visual capture is user-triggered and fully intentional.' },
   { icon: Layers, label: 'Modular design', detail: 'Swappable prescription lenses and temple tips for a personalized fit.' },
 ];
