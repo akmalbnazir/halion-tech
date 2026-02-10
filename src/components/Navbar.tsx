@@ -36,13 +36,12 @@ export default function Navbar() {
       >
         <div className="w-full max-w-[1400px] mx-auto flex items-center justify-between px-6 sm:px-8 lg:px-12 h-16 lg:h-[72px]">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-3 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#5227FF] to-[#7c5cff] flex items-center justify-center">
-              <span className="text-white font-bold text-xs">H</span>
-            </div>
-            <span className="text-white font-medium text-base tracking-tight">
-              Halion
-            </span>
+          <a href="/" className="flex items-center shrink-0">
+            <img 
+              src="/images/icon.png" 
+              alt="Halion" 
+              className="h-8 w-auto"
+            />
           </a>
 
           {/* Desktop nav */}

@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description:
     "Halion builds AR glasses that feel natural to use as part of daily life, with just the right amount of intelligence to make everyday tasks easier.",
   keywords: ["AR glasses", "augmented reality", "wearable technology", "smart glasses", "Halion"],
+  icons: {
+    icon: "/images/icon.png",
+  },
   openGraph: {
     title: "Halion — Augmented Reality Glasses for Everyday Life",
     description:
