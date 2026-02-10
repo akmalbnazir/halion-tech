@@ -1,9 +1,8 @@
 {
-  "[project]/src/components/reactbits/Noise.tsx [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/src/components/reactbits/Noise.tsx [app-client] (ecmascript, next/dynamic entry)",
+  "36016": {
+    "id": 36016,
     "files": [
-      "static/chunks/src_components_reactbits_Noise_tsx_3773c2ad._.js",
-      "static/chunks/src_components_reactbits_Noise_tsx_83be828b._.js"
+      "static/chunks/22505404e0add96e.js"
     ]
   }
 }

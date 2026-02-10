@@ -161,7 +161,6 @@ export default function ProductPage() {
             >
               <StarBorder
                 as="a"
-                // @ts-expect-error href is valid for anchor tags
                 href="/contact"
                 color="#7c5cff"
                 speed="5s"
@@ -505,7 +504,6 @@ export default function ProductPage() {
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <StarBorder
                 as="a"
-                // @ts-expect-error href is valid for anchor tags
                 href="/contact"
                 color="#7c5cff"
                 speed="5s"

@@ -1,3 +1,11 @@
 {
-  "/page": "app/page.js"
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/faq/page": "app/faq/page.js",
+  "/page": "app/page.js",
+  "/philosophy/page": "app/philosophy/page.js",
+  "/product/page": "app/product/page.js",
+  "/team/page": "app/team/page.js",
+  "/use-cases/page": "app/use-cases/page.js"
 }
