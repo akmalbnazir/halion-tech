@@ -1,4 +1,5 @@
-node_modules.next
+node_modules
+.next
 .env.local
 .env.*.local
 npm-debug.log
@@ -6,4 +7,3 @@ build.log
 out/
 dist/
 .turbo/
-node_modules
