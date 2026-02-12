@@ -53,7 +53,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Email</p>
-                  <p className="text-white text-base">hello@halion.tech</p>
+                  <p className="text-white text-base">akmal@haliontech.com</p>
                 </div>
               </div>
             </div>
