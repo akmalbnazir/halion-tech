@@ -192,7 +192,7 @@ export default function ProductPage() {
               {[
                 { val: 38, unit: 'g', label: 'Weight' },
                 { val: 8, suf: '+', unit: 'hr', label: 'Battery' },
-                { val: 40, unit: '°', label: 'Field of View' },
+                { val: 30, unit: '°', label: 'Field of View' },
               ].map((s, i) => (
                 <motion.div
                   key={s.label}
