@@ -40,7 +40,7 @@ export default function Navbar() {
             <img 
               src="/images/icon.png" 
               alt="Halion" 
-              className="h-8 w-auto"
+              className="h-16 w-auto"
             />
           </a>
 
