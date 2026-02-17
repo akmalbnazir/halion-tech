@@ -34,13 +34,13 @@ export default function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        <div className="w-full max-w-[1400px] mx-auto flex items-center justify-between px-6 sm:px-8 lg:px-12 h-16 lg:h-[72px]">
+        <div className="w-full max-w-[1400px] mx-auto flex items-center justify-between px-6 sm:px-8 lg:px-12 h-20 lg:h-[96px]">
           {/* Logo */}
           <a href="/" className="flex items-center shrink-0">
             <img 
               src="/images/icon.png" 
               alt="Halion" 
-              className="h-16 w-auto"
+              className="h-14 lg:h-20 w-auto"
             />
           </a>
 
