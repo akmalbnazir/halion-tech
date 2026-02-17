@@ -11,7 +11,7 @@ const HudDisplay = dynamic(() => import('@/components/HudDisplay'), { ssr: false
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 lg:pt-0 lg:pb-0">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 lg:pt-24 lg:pb-0">
       {/* Background Particles */}
       <div className="absolute inset-0 z-0">
         <Particles
