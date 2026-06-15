@@ -1,16 +1,57 @@
 'use client';
 
 import { motion, useInView } from 'motion/react';
-import { useRef, useState } from 'react';
-import { Mail, Send, ArrowRight } from 'lucide-react';
-import StarBorder from '@/components/reactbits/StarBorder';
+import { useRef, useState, useEffect } from 'react';
+import { Mail, Send, TrendingUp, Sparkles } from 'lucide-react';
+
+type Mode = 'waitlist' | 'investor' | 'general';
+
+const modes: { id: Mode; label: string }[] = [
+  { id: 'waitlist', label: 'Join the waitlist' },
+  { id: 'investor', label: 'Investor inquiry' },
+  { id: 'general', label: 'General' },
+];
+
+const copy: Record<Mode, { icon: typeof Mail; title: string; blurb: string; email: string; placeholder: string; cta: string }> = {
+  waitlist: {
+    icon: Sparkles,
+    title: 'Request early access.',
+    blurb: 'Be first in line for Halion. Early-access units go to the waitlist first, after the AWE June 2026 showcase.',
+    email: 'hello@haliontech.com',
+    placeholder: 'Tell us a bit about how you\'d use Halion…',
+    cta: 'Join the waitlist',
+  },
+  investor: {
+    icon: TrendingUp,
+    title: 'Let\'s talk.',
+    blurb: 'Pre-seed hardware with sharp positioning, recognized partners, and a working prototype. Reach out for the deck and a conversation.',
+    email: 'investors@haliontech.com',
+    placeholder: 'Tell us about your fund or thesis, and we\'ll send the deck…',
+    cta: 'Send investor inquiry',
+  },
+  general: {
+    icon: Mail,
+    title: 'Get in touch.',
+    blurb: 'Questions about the product, press, or partnerships? We\'d love to hear from you.',
+    email: 'hello@haliontech.com',
+    placeholder: 'What\'s on your mind?',
+    cta: 'Send message',
+  },
+};
 
 export default function ContactSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [mode, setMode] = useState<Mode>('waitlist');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  // Preselect mode from ?type= query param (avoids useSearchParams Suspense requirement)
+  useEffect(() => {
+    const t = new URLSearchParams(window.location.search).get('type');
+    if (t === 'investor' || t === 'waitlist' || t === 'general') setMode(t);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,12 +61,12 @@ export default function ContactSection() {
     setMessage('');
   };
 
-  return (
-    <section id="contact" className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32" ref={ref}>
-      {/* Background */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-[#5227FF]/5 blur-[150px] pointer-events-none" />
+  const c = copy[mode];
+  const Icon = c.icon;
 
-      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+  return (
+    <section id="contact" className="relative border-t border-white/[0.08] py-20 sm:py-28" ref={ref}>
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
           {/* Left: Info */}
           <motion.div
@@ -35,41 +76,39 @@ export default function ContactSection() {
             className="space-y-10"
           >
             <div>
-              <p className="text-xs md:text-sm font-mono text-[#7c5cff] tracking-[0.25em] uppercase mb-5">
-                Contact
-              </p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-5">
-                Get in touch.
-              </h2>
-              <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
-                Interested in Halion? Have questions about our approach? We&apos;d love to hear from you.
-              </p>
-            </div>
-
-            <div className="space-y-8">
-              <div className="flex items-center gap-5">
-                <div className="w-10 h-10 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-4 h-4 text-[#7c5cff]" />
-                </div>
-                <div>
-                  <p className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Email</p>
-                  <p className="text-white text-base">akmal@haliontech.com</p>
-                </div>
+              {/* Mode tabs */}
+              <div className="inline-flex flex-wrap gap-2 mb-8">
+                {modes.map((m) => (
+                  <button
+                    key={m.id}
+                    onClick={() => setMode(m.id)}
+                    className={`px-4 py-2 text-[11px] tracking-widest uppercase transition-colors border ${
+                      mode === m.id
+                        ? 'bg-white text-black border-white'
+                        : 'border-white/15 text-white/60 hover:text-white hover:border-white/40'
+                    }`}
+                  >
+                    {m.label}
+                  </button>
+                ))}
               </div>
+
+              <h2 className="text-3xl sm:text-4xl font-light text-white mb-5">{c.title}</h2>
+              <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-md">{c.blurb}</p>
             </div>
 
-            <div className="pt-6">
-              <StarBorder
-                as="a"
-                color="#5227FF"
-                speed="8s"
-                className="cursor-pointer"
-              >
-                <span className="inline-flex items-center gap-3">
-                  Stay updated
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-              </StarBorder>
+            <div className="flex items-center gap-5">
+              <div className="w-11 h-11 border border-white/[0.12] flex items-center justify-center shrink-0">
+                <Icon className="w-4 h-4 text-white/70" />
+              </div>
+              <div>
+                <p className="text-white/40 text-xs uppercase tracking-wider mb-1">
+                  {mode === 'investor' ? 'Investor email' : 'Email'}
+                </p>
+                <a href={`mailto:${c.email}`} className="text-white text-base hover:text-white/70 transition-colors">
+                  {c.email}
+                </a>
+              </div>
             </div>
           </motion.div>
 
@@ -79,44 +118,40 @@ export default function ContactSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-7">
               <div>
-                <label className="text-zinc-400 text-sm uppercase tracking-wider block mb-3">
-                  Email
-                </label>
+                <label className="text-white/50 text-xs uppercase tracking-wider block mb-3">Email</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="your@email.com"
-                  className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3.5 text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-[#5227FF]/50 focus:bg-white/[0.05] transition-all"
+                  className="w-full bg-white/[0.03] border border-white/[0.12] px-4 py-3.5 text-white text-sm placeholder-white/30 focus:outline-none focus:border-white/40 focus:bg-white/[0.05] transition-all"
                 />
               </div>
 
               <div>
-                <label className="text-zinc-400 text-sm uppercase tracking-wider block mb-3">
-                  Message
-                </label>
+                <label className="text-white/50 text-xs uppercase tracking-wider block mb-3">Message</label>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
                   rows={5}
-                  placeholder="Tell us what you're interested in..."
-                  className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3.5 text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-[#5227FF]/50 focus:bg-white/[0.05] transition-all resize-none leading-relaxed"
+                  placeholder={c.placeholder}
+                  className="w-full bg-white/[0.03] border border-white/[0.12] px-4 py-3.5 text-white text-sm placeholder-white/30 focus:outline-none focus:border-white/40 focus:bg-white/[0.05] transition-all resize-none leading-relaxed"
                 />
               </div>
 
               <button
                 type="submit"
-                className="group w-full inline-flex items-center justify-center gap-2.5 h-12 px-6 rounded-lg bg-gradient-to-r from-[#5227FF] to-[#7c5cff] text-white text-sm font-medium hover:shadow-[0_0_30px_rgba(82,39,255,0.35)] transition-all duration-300"
+                className="group w-full inline-flex items-center justify-center gap-2.5 h-12 px-6 bg-white text-black text-xs font-medium tracking-widest uppercase hover:bg-white/90 transition-colors"
               >
                 {submitted ? (
-                  'Message sent!'
+                  'Message sent'
                 ) : (
                   <>
-                    Send message
+                    {c.cta}
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}

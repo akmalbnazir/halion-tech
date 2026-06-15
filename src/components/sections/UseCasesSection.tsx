@@ -2,44 +2,44 @@
 
 import { motion, useInView } from 'motion/react';
 import { useRef } from 'react';
-import SpotlightCard from '@/components/reactbits/SpotlightCard';
-import { MapPin, Calendar, Compass, Hand, Smartphone } from 'lucide-react';
+import { Brain, Users, ClipboardCheck, Focus, Plane, ArrowUpRight } from 'lucide-react';
 
 const useCases = [
   {
-    icon: MapPin,
-    title: 'Remembering What Matters',
-    description: 'Recalling where something was placed becomes effortless. A brief moment of visual context can be referenced later—without searching or retracing steps.',
-    detail: 'Halion supports memory the way humans naturally rely on it: visually, contextually, and on demand.',
-    color: 'rgba(82, 39, 255, 0.2)' as const,
+    icon: Brain,
+    flagship: true,
+    title: 'The detail you forgot you needed',
+    scenario: 'You had a conversation three days ago. You need one detail from it.',
+    description:
+      'Halion surfaces it before you finish the thought. It passively builds context as you go, so the number, the name, the promise — whatever you half-remember — is there the moment you reach for it. This is the flagship: a memory you can actually trust.',
   },
   {
-    icon: Calendar,
-    title: 'Everyday Planning, Without the Friction',
-    description: 'Booking a restaurant, organizing plans, or handling routine scheduling usually requires pulling out a phone. Halion reduces that friction.',
-    detail: 'The interaction is brief, intentional, and out of the way.',
-    color: 'rgba(124, 92, 255, 0.2)' as const,
+    icon: Users,
+    title: 'Every name, every face',
+    scenario: 'You walk into a room of people you\'ve met once.',
+    description:
+      'Halion quietly reminds you who they are and where you left off — the project they mentioned, the thing they cared about. You stop bluffing through introductions and start every conversation already ahead.',
   },
   {
-    icon: Compass,
-    title: 'Visual Context When You Need It',
-    description: 'Subtle visual context directly in your field of view—whether that\'s relevant information while traveling or navigating a new environment.',
-    detail: 'No searching. No switching devices. Just clarity.',
-    color: 'rgba(177, 158, 239, 0.2)' as const,
+    icon: ClipboardCheck,
+    title: 'Commitments that don\'t slip',
+    scenario: 'The meeting ends and you\'ve made three promises.',
+    description:
+      'None of them make it to a notes app, because you\'re already onto the next thing. Halion captures what you committed to in the moment, so follow-through stops depending on your memory holding out until you sit down.',
   },
   {
-    icon: Hand,
-    title: 'Hands Busy, Mind Focused',
-    description: 'Whether you\'re carrying groceries, working on something physical, or moving through your day, Halion lets you interact without stopping.',
-    detail: 'Input remains simple and deliberate, keeping attention on the real world.',
-    color: 'rgba(82, 39, 255, 0.15)' as const,
+    icon: Focus,
+    title: 'Protected attention',
+    scenario: 'You\'re heads-down and the work is finally flowing.',
+    description:
+      'Instead of a buzzing phone pulling you out, Halion holds the noise and surfaces only the one thing that genuinely can\'t wait — at the edge of your vision, on your terms. Fewer interruptions, more of the 47 seconds between task-switches back in your control.',
   },
   {
-    icon: Smartphone,
-    title: 'Living Without Constant Screens',
-    description: 'By delivering information only when it\'s relevant, Halion helps you stay present—checking fewer screens while staying informed.',
-    detail: 'Designed to reduce dependence on phones, not replace them.',
-    color: 'rgba(255, 159, 252, 0.15)' as const,
+    icon: Plane,
+    title: 'Context on the move',
+    scenario: 'You\'re between two meetings in a city you don\'t know.',
+    description:
+      'The address, the confirmation number, the name of the person you\'re about to meet — all of it appears hands-free, exactly when you need it. No stopping, no digging through a phone, no breaking stride.',
   },
 ];
 
@@ -48,97 +48,68 @@ export default function UseCasesSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="usecases" className="relative" ref={ref}>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#5227FF]/[0.03] blur-[180px] pointer-events-none" />
+    <section id="usecases" className="relative border-t border-white/[0.08]" ref={ref}>
+      <div className="w-full max-w-7xl mx-auto relative z-10 px-6 sm:px-10 lg:px-16 py-20 sm:py-28">
+        {/* Flagship use case — full width */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55, delay: 0.25 }}
+          className="border border-white/20 bg-white/[0.04] p-8 sm:p-12 lg:p-14 mb-5"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <Brain className="w-6 h-6 text-white" strokeWidth={1.5} />
+            <span className="font-podium text-[10px] tracking-[0.2em] uppercase text-black bg-white px-2 py-0.5">Flagship</span>
+          </div>
+          <p className="text-2xl sm:text-3xl md:text-4xl font-light text-white leading-snug max-w-3xl mb-5">
+            {useCases[0].scenario}{' '}
+            <span className="text-white/40">{useCases[0].title}.</span>
+          </p>
+          <p className="text-white/60 text-base sm:text-lg leading-relaxed max-w-2xl">
+            {useCases[0].description}
+          </p>
+        </motion.div>
 
-      <div className="w-full max-w-[1400px] mx-auto relative z-10 px-6 sm:px-8 lg:px-12 py-28 sm:py-36 lg:py-44">
-        {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16 sm:mb-20">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="text-[11px] sm:text-xs font-mono text-[#7c5cff] tracking-[0.25em] uppercase mb-4"
-          >
-            Use Cases
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white mb-5 leading-tight"
-          >
-            Designed to fit naturally into{' '}
-            <span className="text-zinc-500">everyday moments.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-zinc-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
-          >
-            Halion is built to support daily life in small but meaningful ways.
-            It quietly assists when it matters most.
-          </motion.p>
-        </div>
-
-        {/* Use cases — card grid on large, stacked on small */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {useCases.map((useCase, i) => (
+        {/* Remaining use cases */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px border border-white/[0.08] bg-white/[0.08]">
+          {useCases.slice(1).map((u, i) => (
             <motion.div
-              key={useCase.title}
+              key={u.title}
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.25 + i * 0.08 }}
-              className={i === 3 ? 'lg:col-span-1 md:col-span-1' : i === 4 ? 'lg:col-span-2 md:col-span-1' : ''}
+              transition={{ duration: 0.5, delay: 0.35 + i * 0.08 }}
+              className="bg-black p-8 sm:p-10"
             >
-              <SpotlightCard
-                className="h-full transition-all duration-300 hover:border-white/10"
-                spotlightColor={useCase.color}
-              >
-                <div className="flex flex-col gap-3">
-                  {/* Icon + Number */}
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center flex-shrink-0">
-                      <useCase.icon className="w-4 h-4 text-[#7c5cff]" />
-                    </div>
-                    <span className="text-3xl font-extralight text-white/[0.05]">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-sm sm:text-base font-medium text-white mt-1">
-                    {useCase.title}
-                  </h3>
-                  <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">
-                    {useCase.description}
-                  </p>
-                  <p className="text-zinc-600 text-[11px] sm:text-xs italic leading-relaxed">
-                    {useCase.detail}
-                  </p>
-                </div>
-              </SpotlightCard>
+              <div className="flex items-center justify-between mb-6">
+                <u.icon className="w-6 h-6 text-white/70" strokeWidth={1.5} />
+                <span className="font-podium text-3xl font-extralight text-white/[0.08]">
+                  {String(i + 2).padStart(2, '0')}
+                </span>
+              </div>
+              <h3 className="text-lg font-medium text-white mb-2">{u.title}</h3>
+              <p className="text-white/70 text-sm italic leading-relaxed mb-3">{u.scenario}</p>
+              <p className="text-white/50 text-sm leading-relaxed">{u.description}</p>
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom callout */}
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-16 sm:mt-20 text-center"
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-white/[0.08] pt-12"
         >
-          <div className="inline-flex flex-col items-center gap-2.5 px-6 sm:px-8 py-5 sm:py-6 rounded-2xl border border-white/[0.06] bg-white/[0.02]">
-            <p className="text-white text-sm sm:text-base font-light leading-relaxed">
-              Halion isn&apos;t designed for constant use.
-            </p>
-            <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed">
-              It&apos;s designed to be there when you need it—and invisible
-              when you don&apos;t.
-            </p>
-          </div>
+          <p className="text-xl sm:text-2xl font-light text-white max-w-lg leading-snug">
+            If your day moves faster than your memory, Halion was built for you.
+          </p>
+          <a
+            href="/contact?type=waitlist"
+            className="group inline-flex items-center gap-2.5 bg-white text-black hover:bg-white/90 px-7 py-3.5 text-xs font-medium tracking-widest uppercase transition-colors shrink-0"
+          >
+            Join the Waitlist
+            <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
         </motion.div>
       </div>
     </section>

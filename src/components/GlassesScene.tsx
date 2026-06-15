@@ -31,11 +31,11 @@ export default function GlassesScene() {
     container.appendChild(renderer.domElement);
 
     /* ── Materials ── */
-    const frameMat = new THREE.LineBasicMaterial({ color: '#7c5cff', transparent: true, opacity: 0.85 });
-    const frameGlowMat = new THREE.LineBasicMaterial({ color: '#5227FF', transparent: true, opacity: 0.3, linewidth: 1 });
-    const lensFillMat = new THREE.MeshBasicMaterial({ color: '#5227FF', transparent: true, opacity: 0.04, side: THREE.DoubleSide });
-    const dotMat = new THREE.MeshBasicMaterial({ color: '#B19EEF', transparent: true, opacity: 0.6 });
-    const particleMat = new THREE.PointsMaterial({ size: 0.02, color: '#5227FF', transparent: true, opacity: 0.4, sizeAttenuation: true });
+    const frameMat = new THREE.LineBasicMaterial({ color: '#C7C9D1', transparent: true, opacity: 0.85 });
+    const frameGlowMat = new THREE.LineBasicMaterial({ color: '#8A8D99', transparent: true, opacity: 0.3, linewidth: 1 });
+    const lensFillMat = new THREE.MeshBasicMaterial({ color: '#8A8D99', transparent: true, opacity: 0.04, side: THREE.DoubleSide });
+    const dotMat = new THREE.MeshBasicMaterial({ color: '#A6A9B4', transparent: true, opacity: 0.6 });
+    const particleMat = new THREE.PointsMaterial({ size: 0.02, color: '#8A8D99', transparent: true, opacity: 0.4, sizeAttenuation: true });
 
     /* ── Glasses group ── */
     const glassesGroup = new THREE.Group();

@@ -15,32 +15,32 @@ const features = [
     icon: Brain,
     title: 'Memory assistance',
     description: 'Remember what matters, from where you placed objects to past visual context—accessible instantly when you need it.',
-    color: 'rgba(82, 39, 255, 0.25)' as const,
+    color: 'rgba(170, 173, 185, 0.25)' as const,
   },
   {
     icon: Eye,
     title: 'Contextual visual overlays',
     description: 'Information appears directly in your field of view only when it\'s relevant, reducing friction without overwhelming you.',
-    color: 'rgba(124, 92, 255, 0.25)' as const,
+    color: 'rgba(199, 201, 209, 0.25)' as const,
   },
   {
     icon: CalendarCheck,
     title: 'Task automation',
     description: 'Routine actions like scheduling, bookings, and planning can be handled seamlessly in the background.',
-    color: 'rgba(177, 158, 239, 0.25)' as const,
+    color: 'rgba(166, 169, 180, 0.25)' as const,
   },
   {
     icon: Circle,
     title: 'Hands-free interaction',
     description: 'Paired with a simple smart ring, Halion allows intentional input without screens, gestures, or distractions.',
-    color: 'rgba(255, 159, 252, 0.25)' as const,
+    color: 'rgba(206, 208, 216, 0.25)' as const,
   },
 ];
 
 const stats = [
-  { value: 8, suffix: '+ hrs', label: 'All-day battery life' },
-  { value: 38, suffix: 'g', label: 'Ultra-lightweight' },
-  { value: 30, suffix: '°', label: 'Field of view' },
+  { value: 4, suffix: ' hrs', label: 'All-day battery life' },
+  { value: 75, suffix: 'g', label: 'Ultra-lightweight' },
+  { value: 60, suffix: '°', label: 'Field of view' },
 ];
 
 const notList = [
@@ -59,7 +59,7 @@ export default function ProductSection() {
       {/* Aurora background — subtle, behind everything */}
       <div className="absolute top-0 left-0 right-0 h-[500px] opacity-20 pointer-events-none">
         <Aurora
-          colorStops={['#5227FF', '#1a1a2e', '#7c5cff']}
+          colorStops={['#8A8D99', '#1a1a2e', '#C7C9D1']}
           amplitude={0.8}
           blend={0.6}
           speed={0.4}
@@ -74,7 +74,7 @@ export default function ProductSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-[11px] sm:text-xs font-mono text-[#7c5cff] tracking-[0.25em] uppercase mb-4"
+            className="text-[11px] sm:text-xs font-mono text-[#C7C9D1] tracking-[0.25em] uppercase mb-4"
           >
             The Product
           </motion.p>
@@ -110,7 +110,7 @@ export default function ProductSection() {
             <div key={stat.label} className="text-center">
               <div className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-1">
                 <CountUp to={stat.value} duration={2} />
-                <span className="text-[#7c5cff]">{stat.suffix}</span>
+                <span className="text-[#C7C9D1]">{stat.suffix}</span>
               </div>
               <p className="text-zinc-500 text-[10px] sm:text-xs tracking-wide">{stat.label}</p>
             </div>
@@ -132,7 +132,7 @@ export default function ProductSection() {
               >
                 <div className="flex flex-col gap-3">
                   <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center flex-shrink-0">
-                    <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#7c5cff]" />
+                    <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#C7C9D1]" />
                   </div>
                   <h3 className="text-base sm:text-lg font-medium text-white">{feature.title}</h3>
                   <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">{feature.description}</p>
@@ -166,7 +166,7 @@ export default function ProductSection() {
                 'Designed to blend into daily routines',
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 group">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#5227FF] group-hover:shadow-[0_0_12px_rgba(82,39,255,0.6)] transition-shadow flex-shrink-0" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#8A8D99] group-hover:shadow-[0_0_12px_rgba(170, 173, 185,0.6)] transition-shadow flex-shrink-0" />
                   <span className="text-zinc-300 text-xs sm:text-sm">{item}</span>
                 </div>
               ))}
@@ -190,7 +190,7 @@ export default function ProductSection() {
             <div className="space-y-4">
               {notList.map((item, i) => (
                 <div key={i} className="flex items-center gap-3 group">
-                  <div className="w-4 h-[1px] bg-zinc-600 group-hover:bg-[#5227FF] transition-colors flex-shrink-0" />
+                  <div className="w-4 h-[1px] bg-zinc-600 group-hover:bg-[#8A8D99] transition-colors flex-shrink-0" />
                   <span className="text-zinc-500 text-xs sm:text-sm group-hover:text-zinc-300 transition-colors">{item}</span>
                 </div>
               ))}
@@ -207,7 +207,7 @@ export default function ProductSection() {
         >
           <div className="inline-block">
             <GradientText
-              colors={['#5227FF', '#B19EEF', '#FF9FFC', '#5227FF']}
+              colors={['#8A8D99', '#A6A9B4', '#CED0D8', '#8A8D99']}
               animationSpeed={6}
               className="text-base sm:text-lg md:text-xl font-light"
             >

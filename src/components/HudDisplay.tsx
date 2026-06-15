@@ -7,7 +7,7 @@ export default function HudDisplay() {
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none">
       {/* Central glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#5227FF]/[0.08] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#8A8D99]/[0.08] blur-[120px] pointer-events-none" />
 
       {/* Perspective container */}
       <div className="relative w-full max-w-[480px] h-[360px] sm:h-[400px]" style={{ perspective: '800px' }}>
@@ -32,9 +32,9 @@ export default function HudDisplay() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
         >
           <div className="relative w-12 h-12 flex items-center justify-center">
-            <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#5227FF]/40 to-transparent" />
-            <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-[#5227FF]/40 to-transparent" />
-            <div className="w-2 h-2 rounded-full bg-[#5227FF]/60 shadow-[0_0_12px_rgba(82,39,255,0.5)]" />
+            <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#8A8D99]/40 to-transparent" />
+            <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-[#8A8D99]/40 to-transparent" />
+            <div className="w-2 h-2 rounded-full bg-[#8A8D99]/60 shadow-[0_0_12px_rgba(170, 173, 185,0.5)]" />
           </div>
         </motion.div>
 
@@ -47,7 +47,7 @@ export default function HudDisplay() {
         >
           <div className="flex items-center gap-4 sm:gap-6 px-4 py-1.5 rounded-full border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm">
             <div className="flex items-center gap-1.5">
-              <Wifi className="w-3 h-3 text-[#7c5cff]/70" />
+              <Wifi className="w-3 h-3 text-[#C7C9D1]/70" />
               <span className="text-[10px] font-mono text-zinc-600">Connected</span>
             </div>
             <div className="w-[1px] h-3 bg-white/[0.06]" />
@@ -71,7 +71,7 @@ export default function HudDisplay() {
           >
             <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md px-4 py-3 w-[160px] sm:w-[180px]">
               <div className="flex items-center gap-2 mb-2">
-                <Clock className="w-3.5 h-3.5 text-[#7c5cff]" />
+                <Clock className="w-3.5 h-3.5 text-[#C7C9D1]" />
                 <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Now</span>
               </div>
               <p className="text-white text-lg sm:text-xl font-light tabular-nums leading-none mb-1">2:47 PM</p>
@@ -93,12 +93,12 @@ export default function HudDisplay() {
           >
             <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md px-4 py-3 w-[150px] sm:w-[165px]">
               <div className="flex items-center gap-2 mb-2">
-                <Navigation className="w-3.5 h-3.5 text-[#7c5cff]" />
+                <Navigation className="w-3.5 h-3.5 text-[#C7C9D1]" />
                 <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Navigate</span>
               </div>
               <p className="text-white text-sm font-light leading-snug mb-1">Turn right ahead</p>
               <div className="flex items-center gap-1.5">
-                <div className="w-6 h-[2px] bg-[#5227FF] rounded-full" />
+                <div className="w-6 h-[2px] bg-[#8A8D99] rounded-full" />
                 <span className="text-zinc-600 text-[10px] font-mono">120m</span>
               </div>
             </div>
@@ -116,10 +116,10 @@ export default function HudDisplay() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 1.4 }}
           >
-            <div className="rounded-2xl border border-[#5227FF]/20 bg-[#5227FF]/[0.04] backdrop-blur-md px-4 py-3 w-[170px] sm:w-[185px]">
+            <div className="rounded-2xl border border-[#8A8D99]/20 bg-[#8A8D99]/[0.04] backdrop-blur-md px-4 py-3 w-[170px] sm:w-[185px]">
               <div className="flex items-center gap-2 mb-2">
-                <Brain className="w-3.5 h-3.5 text-[#B19EEF]" />
-                <span className="text-[10px] font-mono text-[#7c5cff]/80 uppercase tracking-wider">Memory</span>
+                <Brain className="w-3.5 h-3.5 text-[#A6A9B4]" />
+                <span className="text-[10px] font-mono text-[#C7C9D1]/80 uppercase tracking-wider">Memory</span>
               </div>
               <p className="text-zinc-300 text-xs leading-relaxed">Keys left on kitchen counter, 8:12 AM</p>
             </div>
@@ -139,7 +139,7 @@ export default function HudDisplay() {
           >
             <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md px-4 py-3 w-[155px] sm:w-[170px]">
               <div className="flex items-center gap-2 mb-2">
-                <MapPin className="w-3.5 h-3.5 text-[#7c5cff]" />
+                <MapPin className="w-3.5 h-3.5 text-[#C7C9D1]" />
                 <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Context</span>
               </div>
               <p className="text-zinc-300 text-xs leading-relaxed">Open until 9 PM</p>
@@ -152,7 +152,7 @@ export default function HudDisplay() {
         <motion.div
           animate={{ top: ['10%', '90%', '10%'] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#5227FF]/20 to-transparent z-0 pointer-events-none"
+          className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#8A8D99]/20 to-transparent z-0 pointer-events-none"
         />
 
         {/* ── Corner brackets ── */}

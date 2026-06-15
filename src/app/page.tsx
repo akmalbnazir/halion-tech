@@ -2,7 +2,9 @@
 
 import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import HeroSection from '@/components/sections/HeroSection';
+import HomeSections from '@/components/sections/HomeSections';
 
 const Noise = dynamic(() => import('@/components/reactbits/Noise'), { ssr: false });
 
@@ -25,6 +27,11 @@ export default function Home() {
 
       {/* Hero — full viewport */}
       <HeroSection />
+
+      {/* PRD homepage sections: problem, credibility, press, conversion */}
+      <HomeSections />
+
+      <Footer />
     </main>
   );
 }

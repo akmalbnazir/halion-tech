@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ArrowUpRight, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Product', href: '/product' },
-  { label: 'Philosophy', href: '/philosophy' },
   { label: 'Use Cases', href: '/use-cases' },
+  { label: 'Philosophy', href: '/philosophy' },
   { label: 'Team', href: '/team' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
@@ -34,23 +34,19 @@ export default function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        <div className="w-full max-w-[1400px] mx-auto flex items-center justify-between px-6 sm:px-8 lg:px-12 h-20 lg:h-[96px]">
-          {/* Logo */}
-          <a href="/" className="flex items-center shrink-0">
-            <img 
-              src="/images/icon.png" 
-              alt="Halion" 
-              className="h-14 lg:h-20 w-auto"
-            />
+        <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 sm:px-10 lg:px-16 h-16 lg:h-[72px]">
+          {/* Wordmark */}
+          <a href="/" className="font-podium text-2xl sm:text-[1.7rem] font-bold uppercase tracking-wider text-white no-underline shrink-0">
+            HALION
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-9">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[13px] text-zinc-500 hover:text-white transition-colors duration-200"
+                className="font-sans text-xs text-white/70 tracking-[0.15em] uppercase hover:text-white transition-colors"
               >
                 {link.label}
               </a>
@@ -59,30 +55,21 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <a
-            href="/contact"
-            className="hidden md:inline-flex items-center justify-center h-9 px-5 rounded-full bg-white/[0.06] border border-white/[0.08] text-white text-[13px] font-medium hover:bg-white/[0.1] transition-colors shrink-0"
+            href="/contact?type=waitlist"
+            className="hidden md:inline-flex items-center gap-2 border border-white/30 hover:border-white/60 hover:bg-white/[0.06] px-5 py-2.5 text-[11px] tracking-widest uppercase text-white transition-colors shrink-0"
           >
-            Get in touch
+            Join waitlist <ArrowUpRight size={14} />
           </a>
 
           {/* Mobile burger */}
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
-            aria-label="Toggle menu"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            className="md:hidden flex flex-col space-y-1.5 p-1"
           >
-            <motion.span
-              animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className="block w-5 h-[1.5px] bg-white origin-center"
-            />
-            <motion.span
-              animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="block w-5 h-[1.5px] bg-white"
-            />
-            <motion.span
-              animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className="block w-5 h-[1.5px] bg-white origin-center"
-            />
+            <span className="block w-6 h-0.5 bg-white" />
+            <span className="block w-6 h-0.5 bg-white" />
+            <span className="block w-4 h-0.5 bg-white" />
           </button>
         </div>
       </motion.header>
@@ -94,22 +81,39 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl pt-24 px-8 md:hidden"
+            className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl md:hidden"
           >
-            <nav className="flex flex-col gap-6">
+            <div className="flex items-center justify-between px-6 sm:px-10 h-16">
+              <span className="font-podium text-2xl font-bold uppercase tracking-wider text-white">HALION</span>
+              <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="text-white p-1">
+                <X size={28} />
+              </button>
+            </div>
+
+            <nav className="flex flex-col items-start justify-center h-[calc(100vh-80px)] px-6 sm:px-10 gap-5">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.label}
                   href={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.08 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 + 0.1 }}
                   onClick={() => setMobileOpen(false)}
-                  className="text-2xl text-white font-light"
+                  className="font-podium text-4xl sm:text-5xl text-white uppercase"
                 >
                   {link.label}
                 </motion.a>
               ))}
+              <motion.a
+                href="/contact?type=waitlist"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.08 + 0.1 }}
+                onClick={() => setMobileOpen(false)}
+                className="mt-6 inline-flex items-center gap-2 border border-white/30 px-6 py-3 text-xs tracking-widest uppercase text-white"
+              >
+                Join waitlist <ArrowUpRight size={14} />
+              </motion.a>
             </nav>
           </motion.div>
         )}
