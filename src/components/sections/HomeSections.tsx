@@ -1,220 +1,321 @@
 'use client';
 
 import { motion, useInView } from 'motion/react';
-import { useRef } from 'react';
-import { ArrowUpRight, Brain, Smartphone, Glasses, Calendar } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { ArrowUpRight, Copy, Check } from 'lucide-react';
+
+/** Minimal LinkedIn glyph — lucide's brand icons are deprecated, so this is inlined. */
+function LinkedinIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5.001ZM3 9h4v12H3V9Zm7 0h3.84v1.64h.05c.53-1 1.85-2.05 3.81-2.05 4.07 0 4.82 2.68 4.82 6.16V21h-4v-5.34c0-1.27-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.81V21h-4V9Z" />
+    </svg>
+  );
+}
 
 /* ════════════════════════════════════════════
-   PROBLEM STATEMENT
+   ABOUT — what Halion is, plus key specs
    ════════════════════════════════════════════ */
-function ProblemSection() {
+function AboutSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
-  const beats = [
-    { icon: Brain, title: 'Mental overload', desc: 'High-output people carry more in their heads than any mind was built to hold — names, threads, commitments, the detail from a conversation three days ago.' },
-    { icon: Smartphone, title: 'The phone made it worse', desc: 'The device meant to help became the interruption. Every glance pulls you out of the moment and into a feed designed to keep you there.' },
-    { icon: Glasses, title: 'No AR device has solved it', desc: 'Headsets isolate. Camera-first wearables surveil. None of them give you back the one thing you actually lose: your own context.' },
+  const stats: [string, string][] = [
+    ['~75g', 'Wearable weight'],
+    ['60°', 'Field of view'],
+    ['~4 hrs', 'Active battery'],
   ];
 
   return (
-    <section ref={ref} className="relative border-t border-white/[0.06] bg-black">
+    <section id="about" ref={ref} className="relative border-t border-white/[0.06] bg-black">
       <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-28 sm:py-36">
-        <div className="max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="font-podium text-xs text-white/40 tracking-[0.3em] uppercase mb-5"
-          >
-            The Problem
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-light text-white leading-[1.15] mb-6"
-          >
-            Knowledge workers switch tasks every{' '}
-            <span className="font-podium font-bold text-white">47 seconds.</span>{' '}
-            <span className="text-white/40">Halion gives that time back.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.18 }}
-            className="text-white/60 text-base sm:text-lg leading-relaxed"
-          >
-            Busy people are drowning in context. Halion is the first AR device built to hold it for you —
-            quietly, privately, and without another screen to check.
-          </motion.p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px mt-16 sm:mt-20 border border-white/[0.06] bg-white/[0.06]">
-          {beats.map((b, i) => (
-            <motion.div
-              key={b.title}
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.25 + i * 0.1 }}
-              className="bg-black p-8 sm:p-10"
-            >
-              <b.icon className="w-6 h-6 text-white/70 mb-6" strokeWidth={1.5} />
-              <h3 className="text-white text-lg font-medium mb-3">{b.title}</h3>
-              <p className="text-white/50 text-sm leading-relaxed">{b.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ════════════════════════════════════════════
-   CREDIBILITY / PARTNERS BAR
-   ════════════════════════════════════════════ */
-function CredibilityBar() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
-
-  return (
-    <section ref={ref} className="relative border-t border-white/[0.06] bg-white/[0.015]">
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-14 sm:py-16">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12"
-        >
-          <div className="flex items-center gap-3 shrink-0">
-            <Calendar className="w-5 h-5 text-white" strokeWidth={1.5} />
-            <div className="leading-tight">
-              <div className="text-white text-sm font-semibold tracking-wide uppercase">Launching at AWE</div>
-              <div className="text-white/50 text-xs tracking-wide uppercase">California · June 2026</div>
-            </div>
-          </div>
-
-          <div className="hidden lg:block w-px h-12 bg-white/10" />
-
-          <div className="flex-1">
-            <p className="text-white/40 text-[10px] tracking-[0.3em] uppercase mb-4">Built with industry partners</p>
-            <div className="flex flex-wrap items-center gap-x-10 gap-y-4">
-              {['DigiLens', 'Avegant', 'Autodesk'].map((p) => (
-                <span key={p} className="font-podium text-lg sm:text-xl font-bold text-white/70 tracking-tight">
-                  {p}
-                </span>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-/* ════════════════════════════════════════════
-   PRESS — "As seen in"
-   ════════════════════════════════════════════ */
-function PressSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
-  const outlets = ['Forbes', 'Charlotte Business Journal', 'Spectrum News'];
-
-  return (
-    <section ref={ref} className="relative border-t border-white/[0.06] bg-black">
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16 sm:py-20">
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center text-white/40 text-[10px] tracking-[0.3em] uppercase mb-8"
-        >
-          As seen in
-        </motion.p>
-        <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6"
+          transition={{ duration: 0.5 }}
+          className="font-podium text-xs text-white/40 tracking-[0.3em] uppercase mb-6"
         >
-          {outlets.map((o) => (
-            <span key={o} className="text-white/60 text-lg sm:text-2xl font-light tracking-tight">
-              {o}
-            </span>
+          The Device
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-3xl sm:text-5xl md:text-6xl font-light text-white leading-[1.08] max-w-4xl"
+        >
+          A companion built with{' '}
+          <span className="font-podium font-bold text-silver">
+            privacy by design.
+          </span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-white/55 text-base sm:text-lg leading-relaxed max-w-2xl mt-7"
+        >
+          Not a phone accessory. Not a headset. Iris is your passive memory assistant for
+          busy, high-output people — quiet, private, and worn like an ordinary
+          pair of glasses.
+        </motion.p>
+
+        {/* Spec stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="grid grid-cols-3 mt-16 sm:mt-20 border-t border-white/[0.08]"
+        >
+          {stats.map(([v, l], i) => (
+            <div
+              key={l}
+              className={`pt-8 pr-6 ${i > 0 ? 'pl-6 sm:pl-10 border-l border-white/[0.08]' : ''}`}
+            >
+              <div className="font-podium text-white text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+                {v}
+              </div>
+              <div className="text-white/45 text-[10px] sm:text-xs tracking-widest uppercase mt-2">
+                {l}
+              </div>
+            </div>
           ))}
         </motion.div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center text-white/35 text-xs mt-8"
-        >
-          Winner — Autodesk &ldquo;Make It Resilient&rdquo; competition ($10,000)
-        </motion.p>
       </div>
     </section>
   );
 }
 
 /* ════════════════════════════════════════════
-   DUAL-CTA CONVERSION BLOCK
+   TEAM — vertical cards: headshot / name+title / specialization
    ════════════════════════════════════════════ */
-function ConversionSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+type TeamMember = {
+  name: string;
+  title: string;
+  specialization: string;
+  initials: string;
+  /** Drop headshots (square, e.g. 800x800) in public/images/team/ and set e.g. '/images/team/akmal.jpg' */
+  photo?: string;
+  /** Full LinkedIn profile URL, e.g. 'https://www.linkedin.com/in/akmalnazir' */
+  linkedin?: string;
+};
 
-  const cards = [
+function TeamSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  const team: TeamMember[] = [
     {
-      tag: 'For early adopters',
-      title: 'Get on the waitlist.',
-      desc: 'Be among the first to wear Halion. Early access opens after the AWE June 2026 showcase.',
-      cta: 'Join the Waitlist',
-      href: '/contact?type=waitlist',
-      primary: true,
+      name: 'Akmal Nazir',
+      title: 'Chief Executive Officer',
+      specialization: 'Electronics & Systems Architecture',
+      initials: 'AN',
+      photo: '/images/team/akmal.jpg',
+      linkedin: 'https://www.linkedin.com/in/',
     },
     {
-      tag: 'For investors',
-      title: 'Talk to the team.',
-      desc: 'Pre-seed hardware, sharp positioning, and a working prototype. Reach out for the deck and a conversation.',
-      cta: 'Investor Inquiries',
-      href: '/contact?type=investor',
-      primary: false,
+      name: 'Ajith Varikuti',
+      title: 'Product Development',
+      specialization: 'Mechanical Engineering',
+      initials: 'AV',
+      photo: '/images/team/ajith.jpg',
+      linkedin: 'https://www.linkedin.com/in/',
+    },
+    {
+      name: 'Aarya Raut',
+      title: 'Product Development',
+      specialization: 'Systems & Firmware Engineering',
+      initials: 'AR',
+      photo: '/images/team/aarya.jpg',
+      linkedin: 'https://www.linkedin.com/in/',
+    },
+    {
+      name: 'Aarnav Sathish',
+      title: 'Business Development Lead',
+      specialization: 'Operations & Partnerships',
+      initials: 'AS',
+      photo: '/images/team/aarnav.jpg',
+      linkedin: 'https://www.linkedin.com/in/',
     },
   ];
 
   return (
-    <section ref={ref} className="relative border-t border-white/[0.06] bg-black">
+    <section id="team" ref={ref} className="relative border-t border-white/[0.06] bg-black">
       <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-28 sm:py-36">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {cards.map((c, i) => (
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="font-podium text-xs text-white/40 tracking-[0.3em] uppercase mb-6"
+        >
+          The Team
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-3xl sm:text-4xl md:text-5xl font-light text-white leading-[1.15] mb-14 sm:mb-16"
+        >
+          Four builders. <span className="text-white/40">One device.</span>
+        </motion.h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {team.map((m, i) => (
             <motion.div
-              key={c.tag}
-              initial={{ opacity: 0, y: 24 }}
+              key={m.name}
+              initial={{ opacity: 0, y: 28 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              className={`flex flex-col justify-between gap-10 p-8 sm:p-12 border ${
-                c.primary ? 'border-white/20 bg-white/[0.04]' : 'border-white/[0.08] bg-white/[0.015]'
-              }`}
+              transition={{ duration: 0.55, delay: 0.15 + i * 0.1 }}
+              className="group border border-white/[0.08] bg-white/[0.015] hover:border-white/25 hover:bg-white/[0.03] hover:-translate-y-1 transition-all duration-300"
             >
-              <div>
-                <p className="font-podium text-xs text-white/40 tracking-[0.25em] uppercase mb-5">{c.tag}</p>
-                <h3 className="text-2xl sm:text-3xl font-light text-white mb-4">{c.title}</h3>
-                <p className="text-white/55 text-sm sm:text-base leading-relaxed max-w-md">{c.desc}</p>
+              {/* Headshot */}
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#08080a]">
+                {m.photo ? (
+                  <img
+                    src={m.photo}
+                    alt={m.name}
+                    className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-500"
+                  />
+                ) : (
+                  <>
+                    {/* placeholder monogram under a soft spotlight, until real headshots land */}
+                    <div className="spotlight absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] aspect-square opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="font-podium text-6xl sm:text-7xl font-bold text-white/[0.14] group-hover:text-white/25 tracking-tight transition-colors duration-500">
+                        {m.initials}
+                      </span>
+                    </div>
+                  </>
+                )}
+                {/* bottom fade into the meta block */}
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
               </div>
-              <a
-                href={c.href}
-                className={`group inline-flex items-center gap-2.5 px-6 py-3.5 text-[11px] sm:text-xs font-medium tracking-widest uppercase transition-colors no-underline self-start ${
-                  c.primary
-                    ? 'bg-white text-black hover:bg-white/90'
-                    : 'border border-white/20 text-white/80 hover:text-white hover:border-white/50'
-                }`}
-              >
-                {c.cta}
-                <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
+
+              {/* Meta */}
+              <div className="p-5 sm:p-6 border-t border-white/[0.08]">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-white text-lg font-medium leading-snug">{m.name}</h3>
+                  {m.linkedin && (
+                    <a
+                      href={m.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${m.name} on LinkedIn`}
+                      className="shrink-0 text-white/40 hover:text-white transition-colors"
+                    >
+                      <LinkedinIcon className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
+                <p className="text-white/60 text-sm mt-1">{m.title}</p>
+                <p className="font-podium text-[10px] text-white/40 tracking-[0.18em] uppercase mt-4 leading-relaxed">
+                  {m.specialization}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════════════════════════════
+   CONTACT — one email, centre stage
+   ════════════════════════════════════════════ */
+const CONTACT_EMAIL = 'info@haliontech.com';
+
+function ContactSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable — the mailto link still works */
+    }
+  };
+
+  return (
+    <section id="contact" ref={ref} className="relative border-t border-white/[0.06] bg-black overflow-hidden">
+      {/* Stage lighting — echoes the hero */}
+      <div className="spotlight-beam absolute inset-0 opacity-60 pointer-events-none" />
+      <div className="spotlight absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(1100px,120vw)] aspect-square opacity-40 pointer-events-none" />
+
+      <div className="relative w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-32 sm:py-44 flex flex-col items-center text-center">
+        {/* Status chip */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 border border-white/[0.1] bg-white/[0.02] backdrop-blur-sm mb-8"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse-glow" />
+          <span className="font-podium text-[10px] sm:text-[11px] text-white/60 tracking-[0.25em] uppercase">
+            Waitlist open · AWE California · June 2026
+          </span>
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-4xl sm:text-6xl md:text-7xl font-light text-white leading-[1.05]"
+        >
+          Be first in line.
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-white/55 text-base sm:text-lg leading-relaxed max-w-xl mt-6"
+        >
+          Waitlist, investors, press — one inbox reaches the whole team,
+          and a person reads every email.
+        </motion.p>
+
+        {/* The email — the centrepiece */}
+        <motion.a
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          href={`mailto:${CONTACT_EMAIL}`}
+          className="group relative inline-block mt-12 sm:mt-16 no-underline"
+        >
+          <span className="font-podium font-bold text-silver tracking-tight leading-none text-[clamp(1.5rem,6.5vw,4.75rem)] break-all sm:break-normal">
+            {CONTACT_EMAIL}
+          </span>
+          {/* underline sweep */}
+          <span className="absolute -bottom-2 sm:-bottom-3 left-0 h-px w-full bg-gradient-to-r from-transparent via-white/70 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
+          <ArrowUpRight
+            className="absolute -right-6 sm:-right-9 top-0 w-5 h-5 sm:w-7 sm:h-7 text-white/30 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"
+          />
+        </motion.a>
+
+        {/* Copy chip */}
+        <motion.button
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.45 }}
+          onClick={copyEmail}
+          className="group/copy inline-flex items-center gap-2.5 mt-10 sm:mt-12 px-5 py-2.5 border border-white/[0.12] text-white/60 hover:text-white hover:border-white/40 text-[11px] tracking-widest uppercase transition-colors"
+        >
+          {copied ? (
+            <>
+              <Check size={14} className="text-white" />
+              Copied
+            </>
+          ) : (
+            <>
+              <Copy size={14} className="transition-transform group-hover/copy:scale-110" />
+              Copy email
+            </>
+          )}
+        </motion.button>
       </div>
     </section>
   );
@@ -223,10 +324,9 @@ function ConversionSection() {
 export default function HomeSections() {
   return (
     <>
-      <ProblemSection />
-      <CredibilityBar />
-      <PressSection />
-      <ConversionSection />
+      <AboutSection />
+      <TeamSection />
+      <ContactSection />
     </>
   );
 }

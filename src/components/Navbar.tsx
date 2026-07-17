@@ -5,11 +5,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, X } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Product', href: '/product' },
-  { label: 'Use Cases', href: '/use-cases' },
-  { label: 'Philosophy', href: '/philosophy' },
-  { label: 'Team', href: '/team' },
-  { label: 'FAQ', href: '/faq' },
+  { label: 'About', href: '#about' },
+  { label: 'Team', href: '#team' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export default function Navbar() {
@@ -36,7 +34,7 @@ export default function Navbar() {
       >
         <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 sm:px-10 lg:px-16 h-16 lg:h-[72px]">
           {/* Wordmark */}
-          <a href="/" className="font-podium text-2xl sm:text-[1.7rem] font-bold uppercase tracking-wider text-white no-underline shrink-0">
+          <a href="#" className="font-podium text-2xl sm:text-[1.7rem] font-bold uppercase tracking-wider text-white no-underline shrink-0">
             HALION
           </a>
 
@@ -55,7 +53,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <a
-            href="/contact?type=waitlist"
+            href="#contact"
             className="hidden md:inline-flex items-center gap-2 border border-white/30 hover:border-white/60 hover:bg-white/[0.06] px-5 py-2.5 text-[11px] tracking-widest uppercase text-white transition-colors shrink-0"
           >
             Join waitlist <ArrowUpRight size={14} />
@@ -105,7 +103,7 @@ export default function Navbar() {
                 </motion.a>
               ))}
               <motion.a
-                href="/contact?type=waitlist"
+                href="#contact"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.08 + 0.1 }}
