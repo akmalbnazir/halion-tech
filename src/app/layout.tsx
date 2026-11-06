@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Halion — The personal secretary that lives in your glasses",
+  title: "Iris by Halion — Assistive technology built around privacy by design",
   description:
-    "Halion is a primary AR device with fully independent onboard compute — passive memory and ambient context for busy, high-output people. Launching at AWE California, June 2026.",
-  keywords: ["AR glasses", "augmented reality", "wearable technology", "smart glasses", "memory assistance", "ambient computing", "Halion"],
+    "Iris by Halion is assistive technology worn like an ordinary pair of glasses, built around privacy by design.",
+  keywords: ["assistive technology", "privacy by design", "AR glasses", "smart glasses", "wearable technology", "Iris", "Halion"],
   icons: {
     icon: "/images/icon.png",
   },
   openGraph: {
-    title: "Halion — The personal secretary that lives in your glasses",
+    title: "Iris by Halion — Assistive technology built around privacy by design",
     description:
-      "Passive memory for busy minds. A primary AR device with independent onboard compute, built in partnership with DigiLens. Launching at AWE June 2026.",
+      "Assistive technology worn like an ordinary pair of glasses, built around privacy by design.",
     type: "website",
   },
 };

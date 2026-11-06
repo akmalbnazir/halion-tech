@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Marketing site for **Halion** AR glasses ("the personal secretary that lives in your glasses" — launching at AWE California, June 2026). A minimalist single-page site: a pinned scroll-animated hero plus About / Team / Contact sections. No backend, no database, no API routes — everything is static/client-rendered. Contact is plain `mailto:` links (there is no form backend).
+Marketing site for **Iris by Halion** AR glasses — positioned as "assistive technology built around privacy by design" (no longer a "personal secretary"; don't reintroduce that framing). A minimalist single-page site: a pinned scroll-animated hero plus About / Team / Press / Contact sections. No backend, no database, no API routes — everything is static/client-rendered. Contact is plain `mailto:` links (there is no form backend).
 
 ## Commands
 

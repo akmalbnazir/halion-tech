@@ -7,6 +7,7 @@ import { ArrowUpRight, X } from 'lucide-react';
 const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Team', href: '#team' },
+  { label: 'Press', href: '#press' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -56,7 +57,7 @@ export default function Navbar() {
             href="#contact"
             className="hidden md:inline-flex items-center gap-2 border border-white/30 hover:border-white/60 hover:bg-white/[0.06] px-5 py-2.5 text-[11px] tracking-widest uppercase text-white transition-colors shrink-0"
           >
-            Join waitlist <ArrowUpRight size={14} />
+            Get in touch <ArrowUpRight size={14} />
           </a>
 
           {/* Mobile burger */}
@@ -110,7 +111,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-6 inline-flex items-center gap-2 border border-white/30 px-6 py-3 text-xs tracking-widest uppercase text-white"
               >
-                Join waitlist <ArrowUpRight size={14} />
+                Get in touch <ArrowUpRight size={14} />
               </motion.a>
             </nav>
           </motion.div>

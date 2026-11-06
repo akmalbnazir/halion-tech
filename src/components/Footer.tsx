@@ -10,7 +10,7 @@ export default function Footer() {
           <span className="font-podium text-lg font-bold uppercase tracking-wider text-white">HALION</span>
 
           <p className="text-white/35 text-xs tracking-wide text-center order-last sm:order-none">
-            © {new Date().getFullYear()} Halion Technologies · Launching at AWE California, June 2026
+            © {new Date().getFullYear()} Halion Technologies
           </p>
 
           <div className="flex items-center gap-3">

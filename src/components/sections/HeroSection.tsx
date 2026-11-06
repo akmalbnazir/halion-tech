@@ -127,24 +127,6 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* ── Launch badge (top) ── */}
-        <motion.div
-          style={mounted ? { opacity: introOpacity } : undefined}
-          className="absolute top-20 lg:top-24 inset-x-0 flex justify-center z-20"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 border border-white/[0.1] bg-white/[0.02] backdrop-blur-sm"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse-glow" />
-            <span className="font-podium text-[10px] sm:text-[11px] text-white/60 tracking-[0.25em] uppercase">
-              Launching at AWE California · June 2026
-            </span>
-          </motion.div>
-        </motion.div>
-
         {/* ── Opening copy + CTAs (bottom) ── */}
         <motion.div
           style={mounted ? { opacity: introOpacity, y: introY } : undefined}
@@ -157,9 +139,9 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.7 }}
               className="text-white/70 text-sm sm:text-base font-light leading-relaxed max-w-md"
             >
-              The personal secretary that lives in your glasses.{' '}
+              Assistive technology you wear like an ordinary pair of glasses.{' '}
               <span className="text-white font-medium">
-                It remembers, so you don&apos;t have to.
+                Quiet, private, and always with you.
               </span>
             </motion.p>
 
@@ -173,7 +155,7 @@ export default function HeroSection() {
                 href="#contact"
                 className="group inline-flex items-center gap-2.5 bg-white text-black hover:bg-white/90 px-6 sm:px-7 py-3 sm:py-3.5 text-[11px] sm:text-xs font-medium tracking-widest uppercase transition-colors no-underline"
               >
-                Join the Waitlist
+                Get in Touch
                 <ArrowUpRight
                   size={15}
                   className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -217,8 +199,8 @@ export default function HeroSection() {
           style={mounted ? { opacity: taglineOpacity, y: taglineY } : { opacity: 0 }}
           className="absolute bottom-[9vh] inset-x-0 z-20 flex flex-col items-center gap-3 px-6 text-center"
         >
-          <p className="font-podium text-xs sm:text-sm text-white/50 tracking-[0.35em] uppercase">
-            Never forget again
+          <p className="font-podium text-[10px] sm:text-sm text-white/55 tracking-[0.2em] sm:tracking-[0.3em] uppercase max-w-xl leading-relaxed">
+            Iris by Halion
           </p>
         </motion.div>
       </div>

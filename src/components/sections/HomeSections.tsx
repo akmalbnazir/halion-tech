@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'motion/react';
 import { useRef, useState } from 'react';
-import { ArrowUpRight, Copy, Check } from 'lucide-react';
+import { ArrowUpRight, Copy, Check, Globe } from 'lucide-react';
 
 /** Minimal LinkedIn glyph — lucide's brand icons are deprecated, so this is inlined. */
 function LinkedinIcon({ className }: { className?: string }) {
@@ -14,17 +14,11 @@ function LinkedinIcon({ className }: { className?: string }) {
 }
 
 /* ════════════════════════════════════════════
-   ABOUT — what Halion is, plus key specs
+   ABOUT — what Halion is
    ════════════════════════════════════════════ */
 function AboutSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-
-  const stats: [string, string][] = [
-    ['~75g', 'Wearable weight'],
-    ['60°', 'Field of view'],
-    ['~4 hrs', 'Active battery'],
-  ];
 
   return (
     <section id="about" ref={ref} className="relative border-t border-white/[0.06] bg-black">
@@ -43,7 +37,7 @@ function AboutSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-3xl sm:text-5xl md:text-6xl font-light text-white leading-[1.08] max-w-4xl"
         >
-          A companion built with{' '}
+          Assistive technology built around{' '}
           <span className="font-podium font-bold text-silver">
             privacy by design.
           </span>
@@ -54,32 +48,10 @@ function AboutSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-white/55 text-base sm:text-lg leading-relaxed max-w-2xl mt-7"
         >
-          Not a phone accessory. Not a headset. Iris is your passive memory assistant for
-          busy, high-output people — quiet, private, and worn like an ordinary
-          pair of glasses.
+          Iris is assistive technology that looks and wears like an ordinary pair
+          of glasses. It helps quietly through the day, and privacy is part of the
+          design from the start, not an add-on.
         </motion.p>
-
-        {/* Spec stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid grid-cols-3 mt-16 sm:mt-20 border-t border-white/[0.08]"
-        >
-          {stats.map(([v, l], i) => (
-            <div
-              key={l}
-              className={`pt-8 pr-6 ${i > 0 ? 'pl-6 sm:pl-10 border-l border-white/[0.08]' : ''}`}
-            >
-              <div className="font-podium text-white text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-                {v}
-              </div>
-              <div className="text-white/45 text-[10px] sm:text-xs tracking-widest uppercase mt-2">
-                {l}
-              </div>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
@@ -97,6 +69,8 @@ type TeamMember = {
   photo?: string;
   /** Full LinkedIn profile URL, e.g. 'https://www.linkedin.com/in/akmalnazir' */
   linkedin?: string;
+  /** Personal site, e.g. 'https://aaryaraut.dev' */
+  website?: string;
 };
 
 function TeamSection() {
@@ -114,23 +88,25 @@ function TeamSection() {
     },
     {
       name: 'Ajith Varikuti',
-      title: 'Product Development',
+      title: 'Chief Technology Officer',
       specialization: 'Mechanical Engineering',
       initials: 'AV',
       photo: '/images/team/ajith.jpg',
       linkedin: 'https://www.linkedin.com/in/',
+      website: 'https://ajithvarikuti.com',
     },
     {
       name: 'Aarya Raut',
-      title: 'Product Development',
+      title: 'Chief Technology Officer',
       specialization: 'Systems & Firmware Engineering',
       initials: 'AR',
       photo: '/images/team/aarya.jpg',
       linkedin: 'https://www.linkedin.com/in/',
+      website: 'https://aaryaraut.dev',
     },
     {
       name: 'Aarnav Sathish',
-      title: 'Business Development Lead',
+      title: 'Chief Operations Officer',
       specialization: 'Operations & Partnerships',
       initials: 'AS',
       photo: '/images/team/aarnav.jpg',
@@ -173,7 +149,7 @@ function TeamSection() {
                   <img
                     src={m.photo}
                     alt={m.name}
-                    className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-500"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                   />
                 ) : (
                   <>
@@ -194,17 +170,31 @@ function TeamSection() {
               <div className="p-5 sm:p-6 border-t border-white/[0.08]">
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-white text-lg font-medium leading-snug">{m.name}</h3>
-                  {m.linkedin && (
-                    <a
-                      href={m.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${m.name} on LinkedIn`}
-                      className="shrink-0 text-white/40 hover:text-white transition-colors"
-                    >
-                      <LinkedinIcon className="w-4 h-4" />
-                    </a>
-                  )}
+                  <div className="shrink-0 flex items-center gap-3">
+                    {m.linkedin && (
+                      <a
+                        href={m.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${m.name} on LinkedIn`}
+                        className="text-white/40 hover:text-white transition-colors"
+                      >
+                        <LinkedinIcon className="w-4 h-4" />
+                      </a>
+                    )}
+                    {m.website && (
+                      <a
+                        href={m.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${m.name}'s personal website`}
+                        title={m.website.replace('https://', '')}
+                        className="text-white/40 hover:text-white transition-colors"
+                      >
+                        <Globe className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
                 </div>
                 <p className="text-white/60 text-sm mt-1">{m.title}</p>
                 <p className="font-podium text-[10px] text-white/40 tracking-[0.18em] uppercase mt-4 leading-relaxed">
@@ -212,6 +202,88 @@ function TeamSection() {
                 </p>
               </div>
             </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════════════════════════════
+   PRESS — coverage links
+   ════════════════════════════════════════════ */
+/** Logos live in public/images/press/; forced to grayscale, dimmed at rest and lit on hover. */
+const PRESS = [
+  {
+    outlet: 'Charlotte Business Journal',
+    logo: '/images/press/cbj.svg',
+    logoClass: 'w-[62%] max-w-[340px]',
+    href: 'https://www.bizjournals.com/charlotte/news/2026/08/26/teens-ar-glasses-startup-halion-tech.html',
+  },
+  {
+    outlet: 'Yahoo Tech',
+    logo: '/images/press/yahoo-tech.svg',
+    logoClass: 'w-[72%] max-w-[400px]',
+    href: 'https://tech.yahoo.com/ar-vr/articles/charlotte-teens-launch-ap-startup-103643324.html',
+  },
+];
+
+function PressSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  return (
+    <section id="press" ref={ref} className="relative border-t border-white/[0.06] bg-black">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-28 sm:py-36">
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="font-podium text-xs text-white/40 tracking-[0.3em] uppercase mb-6"
+        >
+          In the Press
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-3xl sm:text-4xl md:text-5xl font-light text-white leading-[1.15] mb-14 sm:mb-16"
+        >
+          As featured in.
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {PRESS.map((p, i) => (
+            <motion.a
+              key={p.outlet}
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Read the ${p.outlet} article`}
+              initial={{ opacity: 0, y: 28 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.55, delay: 0.15 + i * 0.1 }}
+              className="group flex flex-col border border-white/[0.08] bg-white/[0.015] hover:border-white/25 hover:bg-white/[0.03] hover:-translate-y-1 transition-all duration-300 no-underline"
+            >
+              {/* Logo stage */}
+              <div className="relative flex items-center justify-center min-h-[220px] sm:min-h-[300px] px-8 overflow-hidden">
+                <div className="spotlight absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] aspect-square opacity-20 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none" />
+                <img
+                  src={p.logo}
+                  alt={p.outlet}
+                  className={`relative h-auto select-none grayscale opacity-70 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500 ${p.logoClass}`}
+                />
+              </div>
+
+              {/* Meta */}
+              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 border-t border-white/[0.08]">
+                <h3 className="text-white text-base sm:text-lg font-medium">{p.outlet}</h3>
+                <span className="inline-flex items-center gap-2 font-podium text-[11px] sm:text-xs text-white/50 group-hover:text-white tracking-[0.2em] uppercase transition-colors duration-300">
+                  Read the article
+                  <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </div>
+            </motion.a>
           ))}
         </div>
       </div>
@@ -246,18 +318,14 @@ function ContactSection() {
       <div className="spotlight absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(1100px,120vw)] aspect-square opacity-40 pointer-events-none" />
 
       <div className="relative w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-32 sm:py-44 flex flex-col items-center text-center">
-        {/* Status chip */}
-        <motion.div
+        <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 border border-white/[0.1] bg-white/[0.02] backdrop-blur-sm mb-8"
+          className="font-podium text-xs text-white/40 tracking-[0.3em] uppercase mb-6"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse-glow" />
-          <span className="font-podium text-[10px] sm:text-[11px] text-white/60 tracking-[0.25em] uppercase">
-            Waitlist open · AWE California · June 2026
-          </span>
-        </motion.div>
+          Contact
+        </motion.p>
 
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -265,18 +333,8 @@ function ContactSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-6xl md:text-7xl font-light text-white leading-[1.05]"
         >
-          Be first in line.
+          Have questions?
         </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-white/55 text-base sm:text-lg leading-relaxed max-w-xl mt-6"
-        >
-          Waitlist, investors, press — one inbox reaches the whole team,
-          and a person reads every email.
-        </motion.p>
 
         {/* The email — the centrepiece */}
         <motion.a
@@ -326,6 +384,7 @@ export default function HomeSections() {
     <>
       <AboutSection />
       <TeamSection />
+      <PressSection />
       <ContactSection />
     </>
   );
