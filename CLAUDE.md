@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Marketing site for **Iris by Halion** AR glasses — positioned as "assistive technology built around privacy by design" (no longer a "personal secretary"; don't reintroduce that framing). A minimalist single-page site: a pinned scroll-animated hero plus About / Team / Press / Contact sections. No backend, no database, no API routes — everything is static/client-rendered. Contact is plain `mailto:` links (there is no form backend).
+Marketing site for **Iris by Halion** AR glasses — positioned as "assistive technology built around privacy by design" (no longer a "personal secretary"; don't reintroduce that framing). A minimalist site: the home page is a pinned scroll-animated hero plus About / Team / Press / Contact sections, and `/gallery` is a separate page (nav-only, not part of the home scroll). Gallery content is whatever is in `public/images/gallery/` — `src/app/gallery/page.tsx` reads the folder server-side (sorted by filename, numeric prefixes control order, filename → caption) and hands it to `src/components/gallery/GalleryView.tsx` (masonry grid + lightbox). No backend, no database, no API routes — everything is static/client-rendered. Contact is plain `mailto:` links (there is no form backend).
 
 ## Commands
 

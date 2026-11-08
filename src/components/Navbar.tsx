@@ -1,17 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, X } from 'lucide-react';
 
+/* Section links are root-relative (/#about) so they also work from /gallery. */
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Team', href: '#team' },
-  { label: 'Press', href: '#press' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '/#about' },
+  { label: 'Team', href: '/#team' },
+  { label: 'Press', href: '/#press' },
+  { label: 'Contact', href: '/#contact' },
+  { label: 'Gallery', href: '/gallery' },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -35,30 +40,39 @@ export default function Navbar() {
       >
         <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 sm:px-10 lg:px-16 h-16 lg:h-[72px]">
           {/* Wordmark */}
-          <a href="#" className="font-podium text-2xl sm:text-[1.7rem] font-bold uppercase tracking-wider text-white no-underline shrink-0">
+          <Link href="/" className="font-podium text-2xl sm:text-[1.7rem] font-bold uppercase tracking-wider text-white no-underline shrink-0">
             HALION
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-9">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="font-sans text-xs text-white/70 tracking-[0.15em] uppercase hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const active = link.href === pathname;
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={`relative font-sans text-xs tracking-[0.15em] uppercase hover:text-white transition-colors ${
+                    active ? 'text-white' : 'text-white/70'
+                  }`}
+                >
+                  {link.label}
+                  {active && (
+                    <span className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Desktop CTA */}
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="hidden md:inline-flex items-center gap-2 border border-white/30 hover:border-white/60 hover:bg-white/[0.06] px-5 py-2.5 text-[11px] tracking-widest uppercase text-white transition-colors shrink-0"
           >
             Get in touch <ArrowUpRight size={14} />
-          </a>
+          </Link>
 
           {/* Mobile burger */}
           <button
@@ -91,28 +105,37 @@ export default function Navbar() {
 
             <nav className="flex flex-col items-start justify-center h-[calc(100vh-80px)] px-6 sm:px-10 gap-5">
               {navLinks.map((link, i) => (
-                <motion.a
+                <motion.div
                   key={link.label}
-                  href={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 + 0.1 }}
-                  onClick={() => setMobileOpen(false)}
-                  className="font-podium text-4xl sm:text-5xl text-white uppercase"
                 >
-                  {link.label}
-                </motion.a>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`font-podium text-4xl sm:text-5xl uppercase ${
+                      link.href === pathname ? 'text-silver' : 'text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
-              <motion.a
-                href="#contact"
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.08 + 0.1 }}
-                onClick={() => setMobileOpen(false)}
-                className="mt-6 inline-flex items-center gap-2 border border-white/30 px-6 py-3 text-xs tracking-widest uppercase text-white"
+                className="mt-6"
               >
-                Get in touch <ArrowUpRight size={14} />
-              </motion.a>
+                <Link
+                  href="/#contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center gap-2 border border-white/30 px-6 py-3 text-xs tracking-widest uppercase text-white"
+                >
+                  Get in touch <ArrowUpRight size={14} />
+                </Link>
+              </motion.div>
             </nav>
           </motion.div>
         )}
